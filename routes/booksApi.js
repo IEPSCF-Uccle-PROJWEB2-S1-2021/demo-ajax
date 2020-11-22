@@ -30,7 +30,7 @@ function requireAcceptsJson(req, res, next) {
 router.all('*', requireAcceptsJson);
 
 router.get('/', (req, res, next) => {
-  res. json({ books });
+  res.json({ books });
 });
 
 module.exports = router;
