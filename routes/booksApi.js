@@ -1,5 +1,4 @@
 const express = require('express');
-const { body, validationResult } = require('express-validator');
 const createError = require('http-errors');
 
 class Book {
@@ -33,25 +32,5 @@ router.all('*', requireAcceptsJson);
 router.get('/', (req, res, next) => {
   res. json({ books });
 });
-
-router.post(
-  '/',
-  [
-    body('author').trim().isLength({ min: 3 }).escape(),
-    body('title').trim().isLength({ min: 3 }).escape(),
-    body('year').isInt({ min: 0, max: 2100 }).toInt(),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      next(createError(400));
-    } else {
-      const book = new Book(req.body.author, req.body.title, req.body.year);
-      books.push(book);
-      res.status(201);
-      res.send("Created");
-    }
-  }
-);
 
 module.exports = router;
